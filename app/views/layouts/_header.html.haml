@@ -1,0 +1,29 @@
+%nav.navbar.navbar-inverse
+  .container-fluid
+    .navbar-header
+      %a.navbar-brand{:href => "/"} Okoders Entertainment
+    %ul.nav.navbar-nav
+      %li.active
+        %a{:href => "/"} Home
+      %li
+        %a{:href => "#"} About Us
+      %li
+        %a{:href => "#"} Contact us
+      %li  
+        = form_tag(root_path, method: :get, class: "navbar-form.navbar-left") do
+          .form-group
+            = text_field_tag :search, nil, class: "form-control",placeholder: "search .."
+        %button.btn.btn-primary{:type => "submit"} Submit
+    %ul.nav.navbar-nav.pull-right  
+      - if user_signed_in?
+        %li
+          = link_to('Logout', destroy_user_session_path, method: :delete, class: 'btn-c')
+      - else
+        %li
+          = link_to('Login', new_user_session_path, class: 'btn-c')
+:css
+  .btn-c{
+    border: 1px solid;
+    margin-top: 20px;
+    border-radius: 5px;
+  }

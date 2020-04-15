@@ -1,0 +1,28 @@
+.container
+  %h2 TV Shows
+  -unless current_user
+    %p Please login to check your faviorate shows.
+  %table.table.table-striped
+    %thead
+      %tr
+        %th Channel
+        %th Show
+        %th Start Time
+        %th End Time
+        -if current_user
+          %th Favourite
+    %tbody
+      -@shows.each do|show|
+        %tr
+          %td=show.channel.name
+          %td=show.name
+          %td=show.start_time.strftime('%H:%M:%S %p')
+          %td=show.end_time.strftime('%H:%M:%S %p')
+          -if current_user
+            %td
+              -if current_user.favourite_show_ids.include?(show.id)
+                = link_to make_unfavourite_tv_show_path(show), method: :put do
+                  %i.fa.fa-heart
+              -else
+                = link_to make_favourite_tv_show_path(show), method: :put do
+                  %i.fa.fa-heartbeat
